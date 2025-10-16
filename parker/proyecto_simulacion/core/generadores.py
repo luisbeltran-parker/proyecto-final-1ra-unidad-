@@ -1,0 +1,1 @@
+# Tu clase GeneradorPseudoaleatorio
