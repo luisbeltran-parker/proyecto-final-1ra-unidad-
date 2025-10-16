@@ -1,0 +1,259 @@
+<!-- Sidebar -->
+<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+    <div class="position-sticky pt-3">
+        <!-- User Info -->
+        <div class="sidebar-user p-3 text-center border-bottom">
+            <div class="sidebar-user-avatar mb-2">
+                <div class="bg-primary rounded-circle d-inline-flex align-items-center justify-content-center" 
+                     style="width: 50px; height: 50px;">
+                    <span class="text-white fw-bold">ES</span>
+                </div>
+            </div>
+            <h6 class="sidebar-user-name mb-1">Estudiante</h6>
+            <small class="text-muted">Simulación Computacional</small>
+        </div>
+
+        <!-- Navigation Menu -->
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link {% if current_page == 'dashboard' %}active{% endif %}" 
+                   href="{{ url_for('index') }}">
+                    <span class="sidebar-icon">📊</span>
+                    Dashboard
+                </a>
+            </li>
+            
+            <!-- Generation Section -->
+            <li class="nav-item">
+                <a class="nav-link {% if current_page == 'generacion' %}active{% endif %}" 
+                   href="{{ url_for('generacion_variables') }}">
+                    <span class="sidebar-icon">🎲</span>
+                    Generación de Variables
+                </a>
+                {% if current_page == 'generacion' %}
+                <ul class="nav flex-column ms-3 my-1">
+                    <li class="nav-item">
+                        <a class="nav-link small py-1" href="{{ url_for('generacion_variables') }}?tipo=discreta">
+                            • Discretas
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link small py-1" href="{{ url_for('generacion_variables') }}?tipo=continua">
+                            • Continuas
+                        </a>
+                    </li>
+                </ul>
+                {% endif %}
+            </li>
+
+            <!-- Tests Section -->
+            <li class="nav-item">
+                <a class="nav-link {% if current_page == 'ajuste' %}active{% endif %}" 
+                   href="{{ url_for('pruebas_ajuste') }}">
+                    <span class="sidebar-icon">📈</span>
+                    Pruebas de Ajuste
+                </a>
+                {% if current_page == 'ajuste' %}
+                <ul class="nav flex-column ms-3 my-1">
+                    <li class="nav-item">
+                        <a class="nav-link small py-1" href="{{ url_for('pruebas_ajuste') }}?paso=carga">
+                            • Cargar Datos
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link small py-1" href="{{ url_for('pruebas_ajuste') }}?paso=seleccion">
+                            • Seleccionar Prueba
+                        </a>
+                    </li>
+                </ul>
+                {% endif %}
+            </li>
+
+            <!-- Monte Carlo Section -->
+            <li class="nav-item">
+                <a class="nav-link {% if current_page == 'monte_carlo' %}active{% endif %}" 
+                   href="{{ url_for('monte_carlo') }}">
+                    <span class="sidebar-icon">🎯</span>
+                    Método Monte Carlo
+                </a>
+                {% if current_page == 'monte_carlo' %}
+                <ul class="nav flex-column ms-3 my-1">
+                    <li class="nav-item">
+                        <a class="nav-link small py-1" href="{{ url_for('monte_carlo') }}?problema=ruina_jugador">
+                            • Ruina del Jugador
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link small py-1" href="{{ url_for('monte_carlo') }}?problema=estimacion_pi">
+                            • Estimación de π
+                        </a>
+                    </li>
+                </ul>
+                {% endif %}
+            </li>
+        </ul>
+
+        <!-- Quick Actions -->
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+            <span>Acciones Rápidas</span>
+        </h6>
+        <ul class="nav flex-column mb-2">
+            <li class="nav-item">
+                <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#nuevaGeneracionModal">
+                    <span class="sidebar-icon">⚡</span>
+                    Nueva Generación
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#cargarArchivoModal">
+                    <span class="sidebar-icon">📁</span>
+                    Cargar Archivo
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#ejemploRapidoModal">
+                    <span class="sidebar-icon">🚀</span>
+                    Ejemplo Rápido
+                </a>
+            </li>
+        </ul>
+
+        <!-- Recent Activity -->
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+            <span>Actividad Reciente</span>
+            <a class="link-secondary" href="#" title="Actualizar">
+                <span>🔄</span>
+            </a>
+        </h6>
+        <div class="px-3">
+            <div id="actividad-reciente">
+                <div class="activity-item mb-2">
+                    <small class="text-muted">Hace 5 min</small>
+                    <div>Generación de 1000 variables Poisson</div>
+                </div>
+                <div class="activity-item mb-2">
+                    <small class="text-muted">Hace 12 min</small>
+                    <div>Prueba KS para distribución Normal</div>
+                </div>
+                <div class="activity-item">
+                    <small class="text-muted">Hace 30 min</small>
+                    <div>Simulación Ruina del Jugador</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- System Status -->
+        <div class="sidebar-status p-3 mt-4 border-top">
+            <h6 class="mb-2">Estado del Sistema</h6>
+            <div class="d-flex justify-content-between small mb-1">
+                <span>API:</span>
+                <span class="badge bg-success" id="status-api">Online</span>
+            </div>
+            <div class="d-flex justify-content-between small mb-1">
+                <span>Base de Datos:</span>
+                <span class="badge bg-success" id="status-db">Conectado</span>
+            </div>
+            <div class="d-flex justify-content-between small">
+                <span>Memoria:</span>
+                <span class="badge bg-info" id="status-memory">65%</span>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<script>
+// Update system status
+function actualizarEstadoSistema() {
+    fetch('/api/health')
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'healthy') {
+                document.getElementById('status-api').className = 'badge bg-success';
+                document.getElementById('status-api').textContent = 'Online';
+            } else {
+                document.getElementById('status-api').className = 'badge bg-danger';
+                document.getElementById('status-api').textContent = 'Offline';
+            }
+        })
+        .catch(error => {
+            document.getElementById('status-api').className = 'badge bg-warning';
+            document.getElementById('status-api').textContent = 'Error';
+        });
+}
+
+// Update memory usage (simulated)
+function actualizarUsoMemoria() {
+    const memory = Math.floor(Math.random() * 30) + 60; // 60-90%
+    document.getElementById('status-memory').textContent = `${memory}%`;
+    
+    if (memory > 85) {
+        document.getElementById('status-memory').className = 'badge bg-danger';
+    } else if (memory > 75) {
+        document.getElementById('status-memory').className = 'badge bg-warning';
+    } else {
+        document.getElementById('status-memory').className = 'badge bg-info';
+    }
+}
+
+// Initial status update
+actualizarEstadoSistema();
+actualizarUsoMemoria();
+
+// Update status every 30 seconds
+setInterval(actualizarEstadoSistema, 30000);
+setInterval(actualizarUsoMemoria, 60000);
+</script>
+
+<style>
+.sidebar {
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+.sidebar-user {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    margin: -1rem -1rem 1rem -1rem;
+}
+
+.sidebar-user-avatar {
+    font-size: 1.2rem;
+}
+
+.sidebar-icon {
+    margin-right: 8px;
+    width: 20px;
+    display: inline-block;
+    text-align: center;
+}
+
+.nav-link {
+    color: #495057;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #0d6efd;
+    background-color: rgba(13, 110, 253, 0.1);
+}
+
+.nav-link.active {
+    color: #0d6efd;
+    background-color: rgba(13, 110, 253, 0.15);
+    border-right: 3px solid #0d6efd;
+    font-weight: 500;
+}
+
+.activity-item {
+    padding: 4px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.activity-item:last-child {
+    border-bottom: none;
+}
+
+.sidebar-status {
+    background-color: #f8f9fa;
+    border-radius: 0.375rem;
+}
+</style>

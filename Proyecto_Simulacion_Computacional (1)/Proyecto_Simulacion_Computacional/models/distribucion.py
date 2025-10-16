@@ -1,0 +1,1 @@
+# distribucion.py - placeholder

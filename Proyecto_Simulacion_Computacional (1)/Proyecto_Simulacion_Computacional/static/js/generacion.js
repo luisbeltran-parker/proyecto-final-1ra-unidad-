@@ -1,0 +1,1 @@
+// generacion.js - placeholder

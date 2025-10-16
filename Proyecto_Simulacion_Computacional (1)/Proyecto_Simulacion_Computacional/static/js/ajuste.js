@@ -1,0 +1,1 @@
+// ajuste.js - placeholder
